@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class Main {
     private static void checkingTheLeapYear(int year) {
@@ -57,6 +58,34 @@ public class Main {
         return (double) sumMonth / array.length;
     }
 
+    private static void reverseElementsArray(int[] array) {
+        for (int i = 0; i < array.length / 2; i++) {
+            array[i] = array[i] + array[array.length - i - 1];
+            array[array.length - i - 1] = array[i] - array[array.length - i - 1];
+            array[i] = array[i] - array[array.length - i - 1];
+        }
+        System.out.print("Массив после переставления элементов: ");
+        System.out.println(Arrays.toString(array));
+    }
+
+    private static void removeDuplicateLetters(String challenge) {
+        System.out.println("Начальная строка - " + challenge);
+        char[] words = challenge.toCharArray();
+        int countDubles = 0;
+        System.out.println("Выполняется проверка на дубли...");
+        for (int i = 0; i < words.length - 1; i++) {
+            if (words[i] == words[i + 1]) {
+                System.out.print("Дубль обнаружен! Повторяющаяся буква на позиции: " + (i + 2));
+                System.out.println(", это буква: " + words[i]);
+                countDubles++;
+                break;
+            }
+        }
+        if (countDubles == 0) {
+            System.out.println("В этой строке дублей не обнаружено!");
+        }
+    }
+
     public static void main(String[] args) {
         // task 1
         /**
@@ -82,6 +111,29 @@ public class Main {
         int numberOfDeliveryDays = calculateNumberDaysDelivery(deliveryDistance);
         System.out.print("Для доставки товара на расстояние " + deliveryDistance);
         System.out.println(" километров потребуется дней: " + numberOfDeliveryDays);
+        // task 4
+        /**
+         * Напишите метод, который получает на вход массив и переставляет все его элементы в обратном порядке.
+         * Рекомендуем написать этот метод без возвращаемого значения. Вы будете приятно удивлены, что даже если мы
+         * не вернем массив, первоначальный массив изменится, когда мы будем модернизировать пришедший в виде
+         * параметра массив внутри метода.
+         */
+        int[] array = {7, 3, 2, 1, 6, 5};
+        System.out.print("Начальный массив: ");
+        System.out.println(Arrays.toString(array));
+        reverseElementsArray(array);
+        System.out.print("Массив после срабатывания метода: ");
+        System.out.println(Arrays.toString(array));
+        // task 5
+        /**
+         * Напишите метод, который в виде параметра принимает отсортированную строку. Например, aabccddefgghiijjkk.
+         * С помощью цикла проверьте, что в строке нет дублей, и выведите в консоль сообщение об этом.
+         * Если дубль найден, нужно прервать поиск по остальным символам и вывести сообщение о присутствии дубля,
+         * причем с указанием, какой именно символ задублирован. Затем сразу же прервать выполнение метода.
+         * Сам метод ничего возвращать не должен (void).
+         */
+        String challenge = "abcdeefghijjk";
+        removeDuplicateLetters(challenge);
         // task 6
         /**
          * Нужно сгенерировать массив, подать его в наш метод, а внутри метода подсчитать сумму элементов
