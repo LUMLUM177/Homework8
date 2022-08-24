@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 
 public class Main {
-    public static void checkingTheLeapYear(int year) {
+    private static void checkingTheLeapYear(int year) {
         if ((year % 4 == 0) && (year % 100 != 0) || year % 400 == 0) {
             System.out.println(year + " - високосный год");
         } else {
@@ -9,34 +9,33 @@ public class Main {
         }
     }
 
-    public static void installTheOperatingSystem(int typeOS, int yearRelease) {
+    private static void installTheOperatingSystem(int typeOS, int yearRelease) {
         int checkYear = 2015;
-        if (typeOS == 0) {
-            if (yearRelease >= checkYear) {
-                System.out.println("Для вашей операционной системы iOS требуется установить обычную версию приложения");
-            } else {
-                System.out.println("Для вашей операционной системы iOS требуется установить lite-версию приложения");
-            }
-        } else {
-            if (yearRelease >= checkYear) {
-                System.out.println("Для вашей операционной системы Android требуется установить обычную версию приложения");
-            } else {
-                System.out.println("Для вашей операционной системы Android требуется установить lite-версию приложения");
-            }
+        if (typeOS == 0 && yearRelease >= checkYear) {
+            System.out.println("Для вашей операционной системы iOS требуется установить обычную версию приложения.");
+        }
+        if (typeOS == 0 && yearRelease <= checkYear) {
+            System.out.println("Для вашей операционной системы iOS требуется установить lite-версию приложения.");
+        }
+        if (typeOS == 1 && yearRelease >= checkYear) {
+            System.out.println("Для вашей операционной системы Android требуется установить обычную версию приложения.");
+        }
+        if (typeOS == 1 && yearRelease <= checkYear) {
+            System.out.println("Для вашей операционной системы Android требуется установить lite-версию приложения.");
         }
     }
 
-    public static void calculateNumberDaysDelivery(int distance) {
+    private static int calculateNumberDaysDelivery(int distance) {
         int minimalDistance = 20;
         int changeableDistance = 40;
         int deliveryDays = 1;
         for (int i = distance; i > minimalDistance; i -= changeableDistance) {
             deliveryDays++;
         }
-        System.out.println("Для доставки товара на расстояние " + distance + " километров потребуется дней: " + deliveryDays);
+        return deliveryDays;
     }
 
-    public static int[] generateRandomArray() {
+    private static int[] generateRandomArray() {
         java.util.Random random = new java.util.Random();
         int[] arr = new int[30];
         for (int i = 0; i < arr.length; i++) {
@@ -45,7 +44,7 @@ public class Main {
         return arr;
     }
 
-    public static int calculateSum(int[] array) {
+    private static int calculateSumArray(int[] array) {
         int sum = 0;
         for (int element : array) {
             sum += element;
@@ -53,8 +52,8 @@ public class Main {
         return sum;
     }
 
-    public static double calculateAverageExpenses(int[] array) {
-        int sumMonth = calculateSum(array);
+    private static double calculateAverageExpensesArray(int[] array) {
+        int sumMonth = calculateSumArray(array);
         return (double) sumMonth / array.length;
     }
 
@@ -72,7 +71,7 @@ public class Main {
          * ( 0 — iOS или 1 — Android) и год выпуска устройства.
          * Если устройство старше текущего года, предложите ему установить lite-версию (облегченную версию).
          */
-        int typeOS = 0;
+        int typeOS = 1;
         installTheOperatingSystem(typeOS, currentYear);
         // task 3
         /**
@@ -80,7 +79,9 @@ public class Main {
          * и возвращает итоговое количество дней доставки.
          */
         int deliveryDistance = 95;
-        calculateNumberDaysDelivery(deliveryDistance);
+        int numberOfDeliveryDays = calculateNumberDaysDelivery(deliveryDistance);
+        System.out.print("Для доставки товара на расстояние " + deliveryDistance);
+        System.out.println(" километров потребуется дней: " + numberOfDeliveryDays);
         // task 6
         /**
          * Нужно сгенерировать массив, подать его в наш метод, а внутри метода подсчитать сумму элементов
@@ -91,7 +92,7 @@ public class Main {
          * Среднее значение нужно вычислять в дробном виде, так как результат должен быть точным.
          */
         int[] expenses = generateRandomArray();
-        double averageExpensesPerDay = calculateAverageExpenses(expenses);
+        double averageExpensesPerDay = calculateAverageExpensesArray(expenses);
         System.out.printf("Средние траты в день составляют: %.2f рублей. ", averageExpensesPerDay);
     }
 }
